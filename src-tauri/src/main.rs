@@ -10,9 +10,9 @@ mod auctions {
 }
 mod utils;
 
-use std::fs;
 
-use auctions::{fetcher::get_lowest_prices, items::{ProfitItem, AuctionItem}};
+
+use auctions::{fetcher::get_lowest_prices, items::{ProfitItem}};
 use reqwest::Client;
 
 use crate::auctions::{fetcher::get_auction_items, handler::get_profit_items};

@@ -1,11 +1,9 @@
-use crate::utils::{get_epoch, get_auction_price, get_name};
-use super::fetcher::{get_auction_items, get_lowest_prices};
+use crate::utils::{get_auction_price, get_epoch, get_name};
+
 use super::items::{AuctionItem, ProfitItem};
 use super::names::normalize_name;
 
-
-use std::collections::HashMap;
-use std::time::Duration;
+use std::{collections::HashMap, time::Duration};
 
 pub async fn get_profit_items(
     items: &Vec<AuctionItem>,
@@ -38,20 +36,19 @@ pub async fn get_profit_items(
             Some(price) => price,
             None => continue,
         };
-        
+
         let profit: i64 = *lowest_price as i64 - auction_price as i64;
 
         if profit < 0 {
             continue;
         }
 
-
         let auctioneer_name = get_name(&item.auctioneer).await;
 
         // get increase from lowest price
         let profit_percent = ((profit as f64 / *lowest_price as f64) * 100.0).round();
 
-        let profit_item = ProfitItem { 
+        let profit_item = ProfitItem {
             auctioneer: auctioneer_name,
             time_remaining: time_remaining,
             item_name: item_name,
@@ -62,7 +59,7 @@ pub async fn get_profit_items(
             uuid: item.uuid.clone(),
         };
 
-        if profit as u64 > minimum_profit  {
+        if profit as u64 > minimum_profit {
             profit_items.push(profit_item);
         }
     }

@@ -1,12 +1,9 @@
-use std::collections::HashMap;
+use super::{items::AuctionItem, names::normalize_name};
+use crate::utils::get_auction_price;
 
 use reqwest::Client;
 use serde_json::Value;
-use serde::{Deserialize, Serialize};
-
-use crate::utils::get_auction_price;
-use super::names::normalize_name;
-use super::items::AuctionItem;
+use std::collections::HashMap;
 
 async fn get_auction_urls(client: &Client) -> Result<Vec<String>, anyhow::Error> {
     let auction_data: serde_json::Value = serde_json::from_str(
@@ -54,7 +51,6 @@ pub async fn get_auction_items(client: &Client) -> Result<Vec<AuctionItem>, anyh
         .unwrap();
 
         let page_auctions = response["auctions"].as_array().unwrap().to_vec();
-
 
         for auction in page_auctions {
             // Convert the auction to a struct

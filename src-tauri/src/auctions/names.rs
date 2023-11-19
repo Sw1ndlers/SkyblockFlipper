@@ -26,12 +26,12 @@ fn remove_reforges(item_name: &mut String) {
 
 pub fn normalize_name(item_name: String) -> String {
     let mut cleaned: String = item_name.clone();
-    
+
     remove_ascii(&mut cleaned);
     normalize_pet_name(&mut cleaned);
-    remove_reforges(&mut cleaned); // Has to be last so symbols dont interfere 
+    remove_reforges(&mut cleaned); // Has to be last so symbols dont interfere
 
-    cleaned = cleaned.trim().to_string(); 
+    cleaned = cleaned.trim().to_string();
     return cleaned;
 }
 

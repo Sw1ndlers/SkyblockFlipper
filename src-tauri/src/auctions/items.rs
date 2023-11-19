@@ -1,6 +1,5 @@
-use std::time::Duration;
-
 use serde::{Deserialize, Serialize};
+use std::time::Duration;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Bid {
@@ -33,7 +32,7 @@ pub struct AuctionItem {
     pub starting_bid: u64,
     pub tier: String,
     pub uuid: String,
-} 
+}
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ProfitItem {
