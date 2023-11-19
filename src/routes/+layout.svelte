@@ -1,0 +1,38 @@
+<svelte:head>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="true" />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&display=swap"
+		rel="stylesheet"
+	/>
+</svelte:head>
+
+
+<slot />
+
+
+<style>
+	:root {
+		--main-background-color: #0e1118;
+        --secondary-background-color: #1a1f28;
+
+		--topbar-color: var(--main-background-color);
+		--accent-color: #48546a;
+
+        --shadow-color: #0d0f13;
+
+		--font-color: #ffffff;
+        --subtle-color: #202632;
+        --subtle-text-color: #c2c7d0;
+
+
+        background-color: var(--main-background-color);
+        color: var(--font-color);
+
+        font-family: 'Inter', sans-serif;
+
+        display: flex;
+        align-items: center;
+	}
+
+</style>
