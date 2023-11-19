@@ -6,7 +6,7 @@
 		"distDir": "../build"
 	},
 	"package": {
-		"productName": "text_editor",
+		"productName": "SkyblockFlipper",
 		"version": "0.1.0"
 	},
 	"tauri": {
