@@ -19,11 +19,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Sync node version and setup cache
-        uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v2
         with:
-          node-version: 'lts/*'
-          cache: 'pnpm' # Set this to npm, yarn or pnpm.
+          version: 6.32.9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '14'
+          cache: 'pnpm'
+      - run: pnpm install
 
       - name: Install dependencies (ubuntu only)
         if: matrix.platform == 'ubuntu-20.04'
@@ -39,6 +42,14 @@ jobs:
         uses: swatinem/rust-cache@v2
         with:
           workspaces: './src-tauri -> target'
+
+      - name: Sync node version and setup cache
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+          cache: 'pnpm' # Set this to npm, yarn or pnpm.
+
+
 
       - name: Install frontend dependencies
         # If you don't have `beforeBuildCommand` configured you may want to build your frontend here too.
