@@ -1,3 +1,5 @@
+import { invoke } from '@tauri-apps/api/tauri';
+
 export function formatSeconds(seconds: number): string {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
@@ -17,4 +19,8 @@ export function getCommand(uuid: string): string {
 
 export function setClipboard(text: string): void {
     navigator.clipboard.writeText(text);
+}
+
+export async function getAuctions() {
+    return await invoke('tauri_get_auctions');
 }

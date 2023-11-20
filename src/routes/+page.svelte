@@ -1,17 +1,14 @@
 <script lang="ts">
 	import ActionButtons from '$components/ActionButtons.svelte';
     import Spinner from '$components/Spinner.svelte';
-	import { invoke } from '@tauri-apps/api/tauri';
 
+    import { getAuctions } from '$lib/utils';
 	import type { AuctionType } from '$lib/types';
     import Auction  from '$components/Auction.svelte' ;
-	import { formatSeconds, formatNumber } from '$lib/utils';
-
-	async function getAuctions() {
-		return await invoke('tauri_get_auctions');
-	}
+	import type { SvelteComponent } from 'svelte';
 
 	let auctions: AuctionType[] = [];
+    let spinner: SvelteComponent;
     $: loading = true;
 
 	getAuctions().then((data) => {
@@ -37,6 +34,7 @@
             loading = false;
 		});
 	}, 60000 * 5);
+
 </script>
 
 <div data-tauri-drag-region class="topbar">
@@ -58,12 +56,12 @@
         </thead>
 
         <colgroup>
-            <col style="width: 25%" /> /* Item */
+            <col style="width: 20%" /> /* Item */
             <col style="width: 15%" /> /* Price */
             <col style="width: 15%" /> /* Profit */
             <col style="width: 15%" /> /* Lowest */
             <col style="width: 10%" /> /* Time Left */
-            <col style="width: 20%" /> /* Auctioneer */
+            <col style="width: 25%" /> /* Auctioneer */
         </colgroup>
 
         {#each auctions as auction}
@@ -72,7 +70,7 @@
     </table>
 {:else}
     <div class="spinner-container">
-        <Spinner />
+        <Spinner bind:this={spinner} />
     </div>
 {/if}
 
@@ -89,8 +87,15 @@
 		flex-direction: row;
 		align-items: center;
 
+
+        backdrop-filter: blur(8.6px);
+        background-color: rgba(14, 17, 24, 0.8);
+    
 		border-bottom: 1px solid var(--subtle-color);
-		box-shadow: 0px 5px 5px 0px var(--shadow-color);
+		box-shadow: 0px 5px 5px 0px var(--shadow-color)
+                    0 4px 30px rgba(0, 0, 0, 0.1);
+
+        position: fixed;
 	}
 
 	.window-title {
@@ -101,6 +106,8 @@
     .spinner-container {
         width: 100vw;
         height: calc(100vh - 51px);
+
+        margin-top: 50px; /* 50px topbar height */
 
         display: flex;
         align-items: center;
@@ -114,7 +121,7 @@
 
 		text-align: left;
 
-		margin-top: 10px;
+		margin-top: calc(10px + 50px); /* 10px padding + 50px topbar height */
 		height: auto;
 		width: 100vw;
 	}

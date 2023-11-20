@@ -1,4 +1,4 @@
-use crate::utils::{get_auction_price, get_epoch, get_name};
+use crate::utils::{get_epoch, get_name};
 
 use super::items::{AuctionItem, ProfitItem};
 use super::names::normalize_name;
@@ -17,50 +17,28 @@ pub async fn get_profit_items(
         if item.bin {
             continue;
         }
-
-        let current_time = get_epoch() as u64;
-
-        if item.end < current_time {
-            continue;
-        }
-
-        let time_remaining = Duration::from_millis(item.end - current_time);
+    
         let item_name = normalize_name(item.item_name.clone());
-        let auction_price = get_auction_price(item);
-
-        if time_remaining.as_secs() > maximum_time {
-            continue;
-        }
-
         let lowest_price = match lowest_prices.get(&item_name) {
             Some(price) => price,
             None => continue,
         };
 
-        let profit: i64 = *lowest_price as i64 - auction_price as i64;
+        let profit_item = item.to_profit_item(item_name, *lowest_price).await;
 
-        if profit < 0 {
-            continue;
-        }
+        match profit_item {
+            Some(mut profit_item) => {
+                if profit_item.time_remaining.as_secs() > maximum_time {
+                    continue;
+                }
+                if profit_item.profit < minimum_profit as i64 {
+                    continue;
+                }
 
-        let auctioneer_name = get_name(&item.auctioneer).await;
-
-        // get increase from lowest price
-        let profit_percent = ((profit as f64 / *lowest_price as f64) * 100.0).round();
-
-        let profit_item = ProfitItem {
-            auctioneer: auctioneer_name,
-            time_remaining: time_remaining,
-            item_name: item_name,
-            price: auction_price,
-            profit: profit as u64,
-            profit_percent: profit_percent,
-            lowest_price: *lowest_price,
-            uuid: item.uuid.clone(),
-        };
-
-        if profit as u64 > minimum_profit {
-            profit_items.push(profit_item);
+                profit_item.auctioneer = get_name(&item.auctioneer).await;
+                profit_items.push(profit_item);
+            },
+            None => continue,
         }
     }
 

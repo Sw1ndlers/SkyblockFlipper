@@ -1,6 +1,11 @@
 use std::time::UNIX_EPOCH;
+use tauri::{Runtime, Window};
 
 use crate::auctions::items::AuctionItem;
+
+pub fn set_spinner_text<R: Runtime>(window: &Window<R>, text: &str) {
+    window.eval(&format!("setSpinnerText('{}')", text)).unwrap();
+}
 
 pub async fn get_name(uuid: &str) -> String {
     let url = format!(
@@ -23,18 +28,18 @@ pub fn get_epoch() -> u128 {
     epoch.as_millis()
 }
 
-pub fn get_auction_price(auction: &AuctionItem) -> u64 {
-    let starting_price = auction.starting_bid;
-    let current_price = auction.highest_bid_amount;
+// pub fn get_auction_price(auction: &AuctionItem) -> u64 {
+//     let starting_price = auction.starting_bid;
+//     let current_price = auction.highest_bid_amount;
 
-    if auction.bin {
-        return starting_price;
-    }
-    if current_price == 0 { 
-        // No bids have been placed
-        return starting_price;
-    } else {
-        // Bids have been placed
-        return current_price;
-    }
-}
+//     if auction.bin {
+//         return starting_price;
+//     }
+//     if current_price == 0 { 
+//         // No bids have been placed
+//         return starting_price;
+//     } else {
+//         // Bids have been placed
+//         return current_price;
+//     }
+// }

@@ -1,6 +1,8 @@
 use serde::{Deserialize, Serialize};
 use std::time::Duration;
 
+use crate::utils::{get_name, get_epoch};
+
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Bid {
     amount: u64,
@@ -40,8 +42,66 @@ pub struct ProfitItem {
     pub time_remaining: Duration,
     pub item_name: String,
     pub price: u64,
-    pub profit: u64,
+    pub profit: i64,
     pub profit_percent: f64,
     pub lowest_price: u64,
     pub uuid: String,
 }
+
+impl AuctionItem {
+    pub async fn to_profit_item(&self, item_name: String, lowest_price: u64) -> Option<ProfitItem> {
+        let price = self.get_price();
+        let profit: i64 = lowest_price as i64 - price as i64;
+
+        if profit < 0 {
+            return None;
+        }
+
+        let epoch_now = get_epoch() as u64;
+
+        if self.end < epoch_now {
+            return None;
+        }
+
+        let profit_percent = ((lowest_price as f64 / self.highest_bid_amount as f64) * 100.0).round();
+        let time_remaining = Duration::from_millis(self.end - epoch_now);
+
+        Some(ProfitItem {
+            auctioneer: "".to_string(), // Assigned later
+            time_remaining,
+            item_name,
+            price,
+            profit,
+            profit_percent,
+            lowest_price,
+            uuid: self.uuid.clone(),
+        })
+    }
+
+    pub fn get_price(&self) -> u64 {
+        let starting_price = self.starting_bid;
+        let current_price = self.highest_bid_amount;
+
+        if self.bin {
+            return starting_price;
+        }
+        if current_price == 0 { 
+            // No bids have been placed
+            return starting_price;
+        } else {
+            // Bids have been placed
+            return current_price;
+        }
+    }
+}
+
+// let profit_item = ProfitItem {
+//     auctioneer: auctioneer_name,
+//     time_remaining: time_remaining,
+//     item_name: item_name,
+//     price: auction_price,
+//     profit: profit as u64,
+//     profit_percent: profit_percent,
+//     lowest_price: *lowest_price,
+//     uuid: item.uuid.clone(),
+// };

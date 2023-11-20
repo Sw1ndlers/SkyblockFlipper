@@ -7,32 +7,31 @@
 	/>
 </svelte:head>
 
-
 <slot />
 
-
 <style>
+
+
 	:root {
 		--main-background-color: #0e1118;
-        --secondary-background-color: #1a1f28;
+		--secondary-background-color: #1a1f28;
 
 		--topbar-color: var(--main-background-color);
 		--accent-color: #48546a;
 
-        --shadow-color: #0d0f13;
+		--shadow-color: #0d0f13;
 
 		--font-color: #ffffff;
-        --subtle-color: #202632;
-        --subtle-text-color: #c2c7d0;
+		--subtle-color: #202632;
+		--subtle-text-color: #c2c7d0;
 
+		background-color: var(--main-background-color);
+		color: var(--font-color);
+		overflow-x: hidden;
 
-        background-color: var(--main-background-color);
-        color: var(--font-color);
+		font-family: 'Inter', sans-serif;
 
-        font-family: 'Inter', sans-serif;
-
-        display: flex;
-        align-items: center;
+		display: flex;
+		align-items: center;
 	}
-
 </style>

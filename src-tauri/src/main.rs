@@ -12,8 +12,11 @@ mod utils;
 
 
 
-use auctions::{fetcher::get_lowest_prices, items::{ProfitItem}};
+use std::fs;
+
+use auctions::{fetcher::get_lowest_prices, items::{ProfitItem, AuctionItem}};
 use reqwest::Client;
+use utils::set_spinner_text;
 
 use crate::auctions::{fetcher::get_auction_items, handler::get_profit_items};
 
@@ -21,15 +24,18 @@ const MINIMUM_PROFIT: u64 = 100000;
 const MAXIMUM_TIME: u64 = 60 * 5; // 5 minutes
 
 
-#[tauri::command]
-async fn tauri_get_auctions() -> Vec<ProfitItem> {
+
+#[command]
+async fn tauri_get_auctions<R: Runtime>(window: Window<R>) -> Vec<ProfitItem> {
     let client = Client::new();
 
-    let auction_items = get_auction_items(&client).await.unwrap();
-    // fs::write("auction_items.json", serde_json::to_string_pretty(&auction_items).unwrap()).unwrap();
+    let auction_items = get_auction_items(&client, &window).await.unwrap();
+    // fs::write("auctions.json", serde_json::to_string(&auction_items).unwrap()).unwrap();
 
-    // let auction_items = fs::read_to_string("auction_items.json").unwrap();
+    // let auction_items = fs::read_to_string("auctions.json").unwrap();
     // let auction_items: Vec<AuctionItem> = serde_json::from_str(&auction_items).unwrap();
+
+    set_spinner_text(&window, "Finding profit items...");
 
     let lowest_prices = get_lowest_prices(&auction_items);
     let profit_items =
@@ -38,7 +44,8 @@ async fn tauri_get_auctions() -> Vec<ProfitItem> {
     return profit_items;
 }
 
-use tauri::Manager;
+
+use tauri::{Manager, Window, Runtime, command};
 use window_shadows::set_shadow;
 
 fn main() {

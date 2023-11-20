@@ -1,6 +1,31 @@
-<span class="loader"></span>
+<script lang="ts" context="module">
+    let loadingText: HTMLParagraphElement;
+
+    declare const window: any;
+    window.setSpinnerText = function(text: string) {
+        loadingText.innerText = text;
+    }
+</script>
+
+<div class="loader-container">
+    <span class="loader"></span>
+    <p class="loading-text" bind:this={loadingText}> Loading </p>
+</div>
+
 
 <style>
+    .loader-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .loading-text {
+        font-size: 16px;
+        padding-top: 10px;
+        color: #fff;
+    }
+
 	.loader {
 		width: 40px;
 		height: 40px;
