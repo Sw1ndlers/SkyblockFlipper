@@ -1,4 +1,21 @@
 import { invoke } from '@tauri-apps/api/tauri';
+import type { AuctionType, SortType } from '$lib/types';
+
+export function sortAuctionsBy(auctions: AuctionType[], sortBy: SortType) {
+    let sorted: AuctionType[] = [];
+
+    if (sortBy.sortFunction != undefined) {
+        sorted = auctions.sort(sortBy.sortFunction!);
+    } else {
+        sorted = auctions.sort(); // Sort alphabetically
+    }
+    
+    if (sortBy.higherToLower) {
+        sorted = sorted.reverse();
+    }
+
+    return sorted;
+}
 
 export function formatSeconds(seconds: number): string {
     const minutes = Math.floor(seconds / 60);

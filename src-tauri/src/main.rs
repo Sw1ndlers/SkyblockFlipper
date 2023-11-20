@@ -10,7 +10,7 @@ mod auctions {
 }
 mod utils;
 
-use std::fs;
+use std::{fs, path::PathBuf};
 
 use auctions::{
     fetcher::{get_item_amounts, get_lowest_prices},
@@ -21,7 +21,7 @@ use utils::set_spinner_text;
 
 use crate::auctions::{fetcher::get_auction_items, handler::get_profit_items};
 
-const DEBUG: bool = false;
+const DEBUG: bool = true;
 
 const MINIMUM_PROFIT: u64 = 100000;
 const MAXIMUM_TIME: u64 = 60 * 5; // 5 minutes
@@ -33,6 +33,10 @@ async fn tauri_get_auctions<R: Runtime>(window: Window<R>) -> Vec<ProfitItem> {
     let auction_items: Vec<AuctionItem>;
 
     if DEBUG {
+        if PathBuf::from("auctions.json").exists() == false {
+            let data = get_auction_items(&client, &window).await.unwrap();
+            fs::write("auctions.json", serde_json::to_string(&data).unwrap()).unwrap();
+        }
         auction_items = serde_json::from_str(&fs::read_to_string("auctions.json").unwrap()).unwrap();
     } else {
         auction_items = get_auction_items(&client, &window).await.unwrap();
@@ -42,7 +46,7 @@ async fn tauri_get_auctions<R: Runtime>(window: Window<R>) -> Vec<ProfitItem> {
     // let auction_items = fs::read_to_string("auctions.json").unwrap();
     // let auction_items: Vec<AuctionItem> = serde_json::from_str(&auction_items).unwrap();
 
-    set_spinner_text(&window, "Finding profit items...");
+    set_spinner_text(&window, "Finding profitable items...");
 
     let lowest_prices = get_lowest_prices(&auction_items);
     let item_amounts = get_item_amounts(&auction_items);
