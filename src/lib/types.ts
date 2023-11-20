@@ -13,7 +13,20 @@ export type AuctionType = {
 	profit: number;
 	profit_percent: number;
 	uuid: string;
+	rarity: string;
 };
+
+export enum Rarity {
+	Common,
+	Uncommon,
+	Rare,
+	Epic,
+	Legendary,
+	Mythic,
+	Special,
+	VerySpecial,
+	Supreme
+}
 
 export type SortType = {
 	sortFunction: (a: AuctionType, b: AuctionType) => number;

@@ -1,10 +1,26 @@
-import type { AuctionType } from '$lib/types';
+import { Rarity, type AuctionType } from '$lib/types';
 
 function sortAlphabetically(a: string, b: string) {
 	if (a < b) return -1;
 	if (a > b) return 1;
 	return 0;
 }
+
+export type RarityColors = {
+	[K in Rarity]: string;
+};
+
+export const rarityColors: RarityColors = {
+	[Rarity.Common]: '#ffffff',
+	[Rarity.Uncommon]: '#5555ff',
+	[Rarity.Rare]: '#5555FF',
+	[Rarity.Epic]: '#aa00aa',
+	[Rarity.Legendary]: '#ffaa00',
+	[Rarity.Mythic]: '#ff55ff',
+	[Rarity.Special]: '#ff5555',
+	[Rarity.VerySpecial]: '#ff5555',
+	[Rarity.Supreme]: '#55ffff'
+};
 
 export const sortFunctions: { [key: string]: (a: AuctionType, b: AuctionType) => number } = {
 	Item: (a: AuctionType, b: AuctionType) => {

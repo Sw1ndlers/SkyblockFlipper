@@ -47,6 +47,7 @@ pub struct ProfitItem {
     pub profit_percent: f64,
     pub lowest_price: u64,
     pub uuid: String,
+    pub rarity: String,
 }
 
 impl AuctionItem {
@@ -67,7 +68,7 @@ impl AuctionItem {
         // TODO: Fix this
         let profit_percent = (((lowest_price - price) / price) * 100) as f64;
         // let profit_percent = round_to_place(profit_percent, 1);
-
+        
         let time_remaining = Duration::from_millis(self.end - epoch_now);
 
         Some(ProfitItem {
@@ -80,6 +81,7 @@ impl AuctionItem {
             profit_percent,
             lowest_price,
             uuid: self.uuid.clone(),
+            rarity: self.tier.clone(),
         })
     }
 

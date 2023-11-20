@@ -1,11 +1,6 @@
 <script lang="ts">
 	// Functions
-	import { getAuctions } from '$lib/utils';
 	import { auctions, updateAuctionData, updateTimeRemaining } from '$lib/stores/Auctions';
-
-	// Types
-	import type { AuctionType } from '$lib/types';
-	import type { SvelteComponent } from 'svelte';
 
 	// Components
 	import ActionButtons from '$components/ActionButtons.svelte';
@@ -14,10 +9,9 @@
 	import Loadingbar from '$components/Loadingbar.svelte';
 	import Column from '$components/Column.svelte';
 
-	let spinner: SvelteComponent;
 	$: loading = true;
 
-	updateAuctionData(10000, () => {
+	updateAuctionData(1, () => {
 		loading = false;
 	});
 	setInterval(updateTimeRemaining, 1000);
@@ -58,7 +52,7 @@
 	</table>
 {:else}
 	<div class="spinner-container">
-		<Spinner bind:this={spinner} />
+		<Spinner />
 	</div>
 {/if}
 
@@ -117,14 +111,6 @@
 		height: 30px;
 		font-weight: bold;
 		border-bottom: 3px solid var(--subtle-color);
-	}
-
-	.table-header th {
-		padding-left: 20px;
-	}
-
-	.amount-th {
-		padding-left: 15px;
 	}
 
 	.amount-col {

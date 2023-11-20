@@ -120,3 +120,20 @@ impl FromStr for Rarity {
         }
     }
 }
+
+
+impl Rarity {
+    pub fn to_string(&self) -> String {
+        match self {
+            Rarity::Common => "Common".to_string(),
+            Rarity::Uncommon => "Uncommon".to_string(),
+            Rarity::Rare => "Rare".to_string(),
+            Rarity::Epic => "Epic".to_string(),
+            Rarity::Legendary => "Legendary".to_string(),
+            Rarity::Mythic => "Mythic".to_string(),
+            Rarity::Special => "Special".to_string(),
+            Rarity::VerySpecial => "Very Special".to_string(),
+            Rarity::Supreme => "Supreme".to_string(),
+        }
+    }
+}

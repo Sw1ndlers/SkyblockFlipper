@@ -1,5 +1,11 @@
 import { invoke } from '@tauri-apps/api/tauri';
-import type { AuctionType, SortType } from '$lib/types';
+import { Rarity, type AuctionType, type SortType } from '$lib/types';
+
+// Auctions
+
+export async function getAuctions() {
+	return await invoke('tauri_get_auctions');
+}
 
 export function sortAuctionsBy(auctions: AuctionType[], sortBy: SortType) {
 	let sorted: AuctionType[] = [];
@@ -17,17 +23,6 @@ export function sortAuctionsBy(auctions: AuctionType[], sortBy: SortType) {
 	return sorted;
 }
 
-export function formatSeconds(seconds: number): string {
-	const minutes = Math.floor(seconds / 60);
-	const remainingSeconds = seconds % 60;
-
-	return `${minutes}m ${remainingSeconds}s`;
-}
-
-export function formatNumber(number: number): string {
-	return number.toLocaleString();
-}
-
 export function getCommand(uuid: string): string {
 	// 885184dc189b421c80acc51ed8eef34a -> 885184dc-189b-421c-80ac-c51ed8eef34a
 	uuid =
@@ -43,10 +38,46 @@ export function getCommand(uuid: string): string {
 	return `/viewauction ${uuid}`;
 }
 
+// Formatting
+
+export function formatSeconds(seconds: number): string {
+	const minutes = Math.floor(seconds / 60);
+	const remainingSeconds = seconds % 60;
+
+	return `${minutes}m ${remainingSeconds}s`;
+}
+
+export function formatNumber(number: number): string {
+	return number.toLocaleString();
+}
+
 export function setClipboard(text: string): void {
 	navigator.clipboard.writeText(text);
 }
 
-export async function getAuctions() {
-	return await invoke('tauri_get_auctions');
+// Misc
+
+export function rarityFromString(rarity: string): Rarity {
+	switch (rarity) {
+		case 'COMMON':
+			return Rarity.Common;
+		case 'UNCOMMON':
+			return Rarity.Uncommon;
+		case 'RARE':
+			return Rarity.Rare;
+		case 'EPIC':
+			return Rarity.Epic;
+		case 'LEGENDARY':
+			return Rarity.Legendary;
+		case 'MYTHIC':
+			return Rarity.Mythic;
+		case 'SPECIAL':
+			return Rarity.Special;
+		case 'VERY_SPECIAL':
+			return Rarity.VerySpecial;
+		case 'SUPREME':
+			return Rarity.Supreme;
+		default:
+			return Rarity.Common;
+	}
 }

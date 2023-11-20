@@ -1,9 +1,16 @@
 <script lang="ts">
 	import type { AuctionType } from '$lib/types';
-	import { formatSeconds, formatNumber, getCommand, setClipboard } from '$lib/utils';
-	import { onDestroy, onMount } from 'svelte';
+	import {
+		formatSeconds,
+		formatNumber,
+		getCommand,
+		setClipboard,
+		rarityFromString
+	} from '$lib/utils';
+	import { rarityColors } from '$lib/constants';
 
 	export let auction: AuctionType;
+	let color = rarityColors[rarityFromString(auction.rarity)];
 	// export let lastAuction: boolean;
 
 	$: copied = false;
@@ -21,12 +28,12 @@
 {#if !copied}
 	<tr class="auction" on:click={handleClick}>
 		<td> {auction.item_amount} </td>
-		<td> {auction.item_name} </td>
-		<td> {formatNumber(auction.price)}$ </td>
-		<td> {formatNumber(auction.lowest_price)}$ </td>
-		<td> {formatNumber(auction.profit)}$ </td>
-		<td> {formatSeconds(auction.time_remaining.secs)} </td>
-		<td> {auction.auctioneer} </td>
+		<td style="color: {color}"> {auction.item_name} </td>
+		<td class="price"> {formatNumber(auction.price)}$ </td>
+		<td class="lowest"> {formatNumber(auction.lowest_price)}$ </td>
+		<td class="profit"> {formatNumber(auction.profit)}$ </td>
+		<td class="time"> {formatSeconds(auction.time_remaining.secs)} </td>
+		<td class="auctioneer"> {auction.auctioneer} </td>
 	</tr>
 {:else}
 	<div class="copied">
@@ -40,7 +47,7 @@
 		padding-left: 20px;
 		height: 40px;
 
-		color: var(--subtle-text-color);
+		/* color: var(--subtle-text-color); */
 		border-bottom: 1px solid var(--subtle-color);
 	}
 
@@ -64,5 +71,22 @@
 		justify-content: center;
 
 		border-bottom: 1px solid var(--subtle-color);
+	}
+
+	.profit {
+		color: lightgreen;
+	}
+
+	.price,
+	.lowest {
+		color: lightskyblue;
+	}
+
+	.auctioneer {
+		color: lightcoral;
+	}
+
+	.time {
+		color: lightgoldenrodyellow;
 	}
 </style>
