@@ -17,7 +17,7 @@
             auctions = data as AuctionType[];
 
             loading = false;
-            await new Promise((resolve) => setTimeout(resolve, 1)); // Delay to prevent crashing
+            await new Promise((resolve) => setTimeout(resolve, 10000000000000)); // Delay to prevent crashing
         }
     }
 
@@ -45,6 +45,7 @@
     <table class="auctions-container">
         <thead>
             <tr class="table-header">
+                <th class="amount-th" scope="col"> # </th>
                 <th scope="col"> Item </th>
                 <th scope="col"> Price </th>
                 <th scope="col"> Lowest </th>
@@ -55,15 +56,16 @@
         </thead>
 
         <colgroup>
+            <col class="amount-col" style="width: 5%" /> /* Amount */
             <col style="width: 20%" /> /* Item */
-            <col style="width: 15%" /> /* Price */
-            <col style="width: 15%" /> /* Profit */
+            <col style="width: 12%" /> /* Price */
+            <col style="width: 12%" /> /* Profit */
             <col style="width: 15%" /> /* Lowest */
             <col style="width: 10%" /> /* Time Left */
-            <col style="width: 25%" /> /* Auctioneer */
+            <col style="width: 20%" /> /* Auctioneer */
         </colgroup>
 
-        {#each auctions as auction}
+        {#each auctions as auction, i}
             <Auction auction={auction} />
         {/each}
     </table>
@@ -127,11 +129,18 @@
 		height: 30px;
 		font-weight: bold;
 		border-bottom: 3px solid var(--subtle-color);
-	}
+    }
 
 	.table-header th {
 		padding-left: 20px;
 	}
 
+    .amount-th {
+        padding-left: 15px;
+    }
+
+    .amount-col {
+        border-right: 1px solid var(--subtle-color);
+    }
 
 </style>

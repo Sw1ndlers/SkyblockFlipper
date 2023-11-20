@@ -7,6 +7,7 @@ export type AuctionType = {
     auctioneer: string,
     time_remaining: Instant,
     item_name: string,
+    item_amount: number,
     price: number,
     lowest_price: number,
     profit: number,

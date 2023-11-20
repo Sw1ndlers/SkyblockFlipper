@@ -8,6 +8,7 @@ use std::{collections::HashMap, time::Duration};
 pub async fn get_profit_items(
     items: &Vec<AuctionItem>,
     lowest_prices: HashMap<String, u64>,
+    item_amounts: HashMap<String, u64>,
     maximum_time: u64,
     minimum_profit: u64,
 ) -> Vec<ProfitItem> {
@@ -19,12 +20,17 @@ pub async fn get_profit_items(
         }
     
         let item_name = normalize_name(item.item_name.clone());
+
         let lowest_price = match lowest_prices.get(&item_name) {
             Some(price) => price,
             None => continue,
         };
+        let item_amount = match item_amounts.get(&item_name) {
+            Some(amount) => amount,
+            None => continue,
+        };
 
-        let profit_item = item.to_profit_item(item_name, *lowest_price).await;
+        let profit_item = item.to_profit_item(item_name, *lowest_price, *item_amount).await;
 
         match profit_item {
             Some(mut profit_item) => {

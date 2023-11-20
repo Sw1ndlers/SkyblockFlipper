@@ -41,6 +41,7 @@ pub struct ProfitItem {
     pub auctioneer: String,
     pub time_remaining: Duration,
     pub item_name: String,
+    pub item_amount: u64,
     pub price: u64,
     pub profit: i64,
     pub profit_percent: f64,
@@ -49,7 +50,7 @@ pub struct ProfitItem {
 }
 
 impl AuctionItem {
-    pub async fn to_profit_item(&self, item_name: String, lowest_price: u64) -> Option<ProfitItem> {
+    pub async fn to_profit_item(&self, item_name: String, lowest_price: u64, item_amount: u64) -> Option<ProfitItem> {
         let price = self.get_price();
         let profit: i64 = lowest_price as i64 - price as i64;
 
@@ -64,13 +65,14 @@ impl AuctionItem {
         }
 
         // let profit_percent = ((lowest_price as f64 / self.highest_bid_amount as f64) * 100.0).round();
-        let profit_percent = ((profit as f64 / price as f64) * 100.0).round();
+        let profit_percent = ((100.0 - (profit as f64 / lowest_price as f64)) * 100.0).round();
         let time_remaining = Duration::from_millis(self.end - epoch_now);
 
         Some(ProfitItem {
             auctioneer: "".to_string(), // Assigned later
             time_remaining,
             item_name,
+            item_amount,
             price,
             profit,
             profit_percent,

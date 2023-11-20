@@ -4,7 +4,7 @@
 	import { onDestroy, onMount } from 'svelte';
 
 	export let auction: AuctionType;
-	let auctionElement: HTMLTableRowElement;
+    // export let lastAuction: boolean;
 
     $: copied = false;
 
@@ -19,7 +19,8 @@
 </script>
 
 {#if !copied}
-    <tr class="auction" on:click={handleClick}>
+    <tr class="auction"  on:click={handleClick} >
+        <td> {auction.item_amount} </td>
         <td> {auction.item_name} </td>
         <td> {formatNumber(auction.price)}$ </td>
         <td> {formatNumber(auction.lowest_price)}$ </td>
@@ -59,6 +60,8 @@
     .copied {
         width: 100vw;
         height: 40px;
+
+        background-color: var(--subtle-color);
         
         display: flex;
         align-items: center;
@@ -66,5 +69,4 @@
 
         border-bottom: 1px solid var(--subtle-color);
     }
-
 </style>

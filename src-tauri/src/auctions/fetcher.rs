@@ -3,8 +3,8 @@ use crate::utils::set_spinner_text;
 
 use reqwest::Client;
 use serde_json::Value;
-use tauri::{Window, Runtime};
 use std::collections::HashMap;
+use tauri::{Runtime, Window};
 
 async fn get_auction_urls(client: &Client) -> Result<Vec<String>, anyhow::Error> {
     let auction_data: serde_json::Value = serde_json::from_str(
@@ -27,7 +27,10 @@ async fn get_auction_urls(client: &Client) -> Result<Vec<String>, anyhow::Error>
     Ok(urls)
 }
 
-pub async fn get_auction_items<R: Runtime>(client: &Client, window: &Window<R>) -> Result<Vec<AuctionItem>, anyhow::Error> {
+pub async fn get_auction_items<R: Runtime>(
+    client: &Client,
+    window: &Window<R>,
+) -> Result<Vec<AuctionItem>, anyhow::Error> {
     let urls = get_auction_urls(client).await?;
     let total_pages = urls.len();
 
@@ -41,7 +44,6 @@ pub async fn get_auction_items<R: Runtime>(client: &Client, window: &Window<R>) 
 
         println!("{fetching_text}");
         set_spinner_text(window, &fetching_text);
-
 
         // Get the auctions on this page
         let response: Value = serde_json::from_str(
@@ -69,6 +71,23 @@ pub async fn get_auction_items<R: Runtime>(client: &Client, window: &Window<R>) 
     println!("Fetched {} auctions", auctions.len());
 
     Ok(auctions)
+}
+
+pub fn get_item_amounts(auctions: &Vec<AuctionItem>) -> HashMap<String, u64> {
+    let mut item_amounts: HashMap<String, u64> = HashMap::new();
+
+    for auction in auctions {
+        let item_name = auction.item_name.clone();
+
+        if item_amounts.contains_key(&item_name) {
+            let current_amount = item_amounts.get(&item_name).unwrap();
+            item_amounts.insert(item_name, current_amount + 1);
+        } else {
+            item_amounts.insert(item_name, 1);
+        }
+    }
+
+    item_amounts
 }
 
 pub fn get_lowest_prices(auctions: &Vec<AuctionItem>) -> HashMap<String, u64> {

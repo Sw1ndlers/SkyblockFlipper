@@ -10,8 +10,6 @@
 <slot />
 
 <style>
-
-
 	:root {
 		--main-background-color: #0e1118;
 		--secondary-background-color: #1a1f28;
