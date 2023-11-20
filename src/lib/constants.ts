@@ -1,18 +1,18 @@
 import type { AuctionType } from '$lib/types';
 
 function sortAlphabetically(a: string, b: string) {
-    if (a < b) return -1;
-    if (a > b) return 1;
-    return 0;
+	if (a < b) return -1;
+	if (a > b) return 1;
+	return 0;
 }
 
 export const sortFunctions: { [key: string]: (a: AuctionType, b: AuctionType) => number } = {
-    Item: (a: AuctionType, b: AuctionType) => {
-        return sortAlphabetically(a.item_name, b.item_name);
-    },
-    Auctioneer: (a: AuctionType, b: AuctionType) => {
-        return sortAlphabetically(a.auctioneer, b.auctioneer);
-    },
+	Item: (a: AuctionType, b: AuctionType) => {
+		return sortAlphabetically(a.item_name, b.item_name);
+	},
+	Auctioneer: (a: AuctionType, b: AuctionType) => {
+		return sortAlphabetically(a.auctioneer, b.auctioneer);
+	},
 	Price: (a: AuctionType, b: AuctionType) => {
 		return a.price - b.price;
 	},

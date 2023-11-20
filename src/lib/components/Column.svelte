@@ -11,8 +11,8 @@
 
 	import arrowIcon from '$lib/icons/arrow.svg';
 	import { updateAuctions, setCurrentSort } from '$lib/stores/Auctions';
-    import { sortFunctions } from '$lib/constants';
-    import { sortAuctionsBy } from '$lib/utils';
+	import { sortFunctions } from '$lib/constants';
+	import { sortAuctionsBy } from '$lib/utils';
 	import type { SortType } from '$lib/types';
 
 	$: hovered = false;
@@ -21,15 +21,15 @@
 	function handleClick() {
 		higherToLower = !higherToLower;
 
-        let currentSort: SortType = {
-            sortFunction: sortFunctions[title],
-            higherToLower
-        };
+		let currentSort: SortType = {
+			sortFunction: sortFunctions[title],
+			higherToLower
+		};
 
-        setCurrentSort(currentSort);
-        updateAuctions((auctions) => {
-            return sortAuctionsBy(auctions, currentSort);
-        });
+		setCurrentSort(currentSort);
+		updateAuctions((auctions) => {
+			return sortAuctionsBy(auctions, currentSort);
+		});
 	}
 </script>
 

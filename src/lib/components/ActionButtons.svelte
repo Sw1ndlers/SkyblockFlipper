@@ -63,6 +63,6 @@
 
 	.action-button:hover {
 		background-color: var(--accent-color);
-        cursor: pointer;
+		cursor: pointer;
 	}
 </style>

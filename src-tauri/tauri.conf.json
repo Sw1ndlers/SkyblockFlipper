@@ -58,7 +58,7 @@
 			}
 		},
 		"security": {
-            "dangerousDisableAssetCspModification": true
+			"dangerousDisableAssetCspModification": true
 		},
 
 		"updater": {

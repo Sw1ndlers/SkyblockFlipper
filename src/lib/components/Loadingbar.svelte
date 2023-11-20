@@ -16,7 +16,7 @@
 	};
 
 	progress.subscribe((value) => {
-        if (loadingBar == undefined) return;
+		if (loadingBar == undefined) return;
 
 		loadingBar.style.width = `${value}%`;
 	});
