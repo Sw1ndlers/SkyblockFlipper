@@ -26,7 +26,7 @@
 
 <style>
 	.loading-bar {
-		position: absolute;
+		position: fixed;
 		bottom: 0;
 
 		width: 100%;
