@@ -11,10 +11,18 @@
     let spinner: SvelteComponent;
     $: loading = true;
 
-	getAuctions().then((data) => {
-		auctions = data as AuctionType[];
-        loading = false;
-	});
+    async function updateAuctions() {
+        while (true) {
+            let data = await getAuctions();
+            auctions = data as AuctionType[];
+
+            loading = false;
+            await new Promise((resolve) => setTimeout(resolve, 1)); // Delay to prevent crashing
+        }
+    }
+
+    loading = true; // Initial loading state
+    updateAuctions();
 
 	// Update time remaining every second
 	setInterval(() => {
@@ -25,15 +33,6 @@
 			})
 			.filter((auction) => auction.time_remaining.secs > 0);
 	}, 1000);
-
-	// Update auctions every 5 minutes
-	setInterval(() => {
-        loading = true;
-		getAuctions().then((data) => {
-			auctions = data as AuctionType[];
-            loading = false;
-		});
-	}, 60000 * 5);
 
 </script>
 
@@ -73,8 +72,6 @@
         <Spinner bind:this={spinner} />
     </div>
 {/if}
-
-
 
 <style>
 	.topbar {

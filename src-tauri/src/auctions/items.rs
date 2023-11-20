@@ -63,7 +63,8 @@ impl AuctionItem {
             return None;
         }
 
-        let profit_percent = ((lowest_price as f64 / self.highest_bid_amount as f64) * 100.0).round();
+        // let profit_percent = ((lowest_price as f64 / self.highest_bid_amount as f64) * 100.0).round();
+        let profit_percent = ((profit as f64 / price as f64) * 100.0).round();
         let time_remaining = Duration::from_millis(self.end - epoch_now);
 
         Some(ProfitItem {
