@@ -19,10 +19,6 @@ export async function updateAuctionData(delay: number = 1, callback: Function) {
 		let data = (await getAuctions()) as AuctionType[];
         let sortBy = get(currentSort);
 
-        // updateAuctions((auctions) => {
-        //     return sortAuctionsBy(auctions, sortBy);
-        // });
-
         setAuctions(sortAuctionsBy(data, sortBy));
 
 		window.eval(`setLoadingbarProgress(100)`); // Set loadingbar to 100% when done loading

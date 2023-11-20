@@ -16,6 +16,6 @@ export type AuctionType = {
 };
 
 export type SortType = {
-    sortFunction: ((a: AuctionType, b: AuctionType) => number)| undefined;
+    sortFunction: ((a: AuctionType, b: AuctionType) => number);
 	higherToLower: boolean;
 };

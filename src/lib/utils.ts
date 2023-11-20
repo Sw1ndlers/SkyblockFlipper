@@ -4,11 +4,11 @@ import type { AuctionType, SortType } from '$lib/types';
 export function sortAuctionsBy(auctions: AuctionType[], sortBy: SortType) {
     let sorted: AuctionType[] = [];
 
-    if (sortBy.sortFunction != undefined) {
-        sorted = auctions.sort(sortBy.sortFunction!);
-    } else {
-        sorted = auctions.sort(); // Sort alphabetically
+    if (sortBy.sortFunction != undefined) { 
+        new Error('Sort function is undefined');
     }
+
+    sorted = auctions.sort(sortBy.sortFunction!);
     
     if (sortBy.higherToLower) {
         sorted = sorted.reverse();
