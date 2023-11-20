@@ -1,9 +1,9 @@
-use crate::utils::{get_epoch, get_name};
+use crate::utils::get_name;
 
 use super::items::{AuctionItem, ProfitItem};
 use super::names::normalize_name;
 
-use std::{collections::HashMap, time::Duration};
+use std::collections::HashMap;
 
 pub async fn get_profit_items(
     items: &Vec<AuctionItem>,

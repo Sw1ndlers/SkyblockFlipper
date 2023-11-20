@@ -1,7 +1,7 @@
+use crate::utils::get_epoch;
+
 use serde::{Deserialize, Serialize};
 use std::time::Duration;
-
-use crate::utils::{get_name, get_epoch, round_to_place};
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Bid {

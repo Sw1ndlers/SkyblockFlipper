@@ -1,8 +1,6 @@
 use std::time::UNIX_EPOCH;
 use tauri::{Runtime, Window};
 
-use crate::auctions::items::AuctionItem;
-
 pub fn set_spinner_text<R: Runtime>(window: &Window<R>, text: &str) {
     window.eval(&format!("setSpinnerText('{}')", text)).unwrap();
 }
@@ -33,7 +31,7 @@ pub fn get_epoch() -> u128 {
     epoch.as_millis()
 }
 
-pub fn round_to_place(num: f64, place: u32) -> f64 {
+pub fn _round_to_place(num: f64, place: u32) -> f64 {
     let place = 10.0_f64.powi(place as i32);
     (num * place).round() / place
 }
