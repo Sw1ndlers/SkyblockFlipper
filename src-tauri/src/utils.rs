@@ -33,3 +33,7 @@ pub fn get_epoch() -> u128 {
     epoch.as_millis()
 }
 
+pub fn round_to_place(num: f64, place: u32) -> f64 {
+    let place = 10.0_f64.powi(place as i32);
+    (num * place).round() / place
+}

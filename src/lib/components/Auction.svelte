@@ -24,7 +24,7 @@
         <td> {auction.item_name} </td>
         <td> {formatNumber(auction.price)}$ </td>
         <td> {formatNumber(auction.lowest_price)}$ </td>
-        <td> {formatNumber(auction.profit)}$ ({auction.profit_percent}%) </td>
+        <td> {formatNumber(auction.profit)}$ </td>
         <td> {formatSeconds(auction.time_remaining.secs)} </td>
         <td> {auction.auctioneer} </td>
     </tr>

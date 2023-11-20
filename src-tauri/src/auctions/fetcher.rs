@@ -1,7 +1,6 @@
 use super::{items::AuctionItem, names::normalize_name};
 use crate::utils::{set_spinner_text, set_loadingbar_progress};
 
-use futures::{stream, StreamExt};
 use reqwest::Client;
 use serde_json::Value;
 use std::collections::HashMap;
@@ -44,7 +43,7 @@ pub async fn get_auction_items<R: Runtime>(
         let fetching_text = format!("Fetching page {}/{}", i + 1, total_pages);
 
         println!("{fetching_text}");
-        
+
         set_spinner_text(window, &fetching_text);
         set_loadingbar_progress(window, i as u64, total_pages as u64);
 

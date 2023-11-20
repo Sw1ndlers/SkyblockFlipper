@@ -28,11 +28,11 @@ const MAXIMUM_TIME: u64 = 60 * 5; // 5 minutes
 async fn tauri_get_auctions<R: Runtime>(window: Window<R>) -> Vec<ProfitItem> {
     let client = Client::new();
 
-    // let auction_items = get_auction_items(&client, &window).await.unwrap();
-    // fs::write("auctions.json", serde_json::to_string(&auction_items).unwrap()).unwrap();
+    let auction_items = get_auction_items(&client, &window).await.unwrap();
+    fs::write("auctions.json", serde_json::to_string(&auction_items).unwrap()).unwrap();
 
-    let auction_items = fs::read_to_string("auctions.json").unwrap();
-    let auction_items: Vec<AuctionItem> = serde_json::from_str(&auction_items).unwrap();
+    // let auction_items = fs::read_to_string("auctions.json").unwrap();
+    // let auction_items: Vec<AuctionItem> = serde_json::from_str(&auction_items).unwrap();
 
     set_spinner_text(&window, "Finding profit items...");
 

@@ -62,8 +62,8 @@
             <col class="amount-col" style="width: 5%" /> /* Amount */
             <col style="width: 20%" /> /* Item */
             <col style="width: 12%" /> /* Price */
+            <col style="width: 12%" /> /* Lowest */
             <col style="width: 12%" /> /* Profit */
-            <col style="width: 15%" /> /* Lowest */
             <col style="width: 10%" /> /* Time Left */
             <col style="width: 20%" /> /* Auctioneer */
         </colgroup>
@@ -71,9 +71,7 @@
         {#each auctions as auction, i}
             <Auction auction={auction} />
         {/each}
-    </table>
-
-    
+    </table>    
 {:else}
     <div class="spinner-container">
         <Spinner bind:this={spinner} />

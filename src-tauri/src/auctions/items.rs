@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use std::time::Duration;
 
-use crate::utils::{get_name, get_epoch};
+use crate::utils::{get_name, get_epoch, round_to_place};
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Bid {
@@ -64,8 +64,10 @@ impl AuctionItem {
             return None;
         }
 
-        // let profit_percent = ((lowest_price as f64 / self.highest_bid_amount as f64) * 100.0).round();
-        let profit_percent = ((100.0 - (profit as f64 / lowest_price as f64)) * 100.0).round();
+        // TODO: Fix this
+        let profit_percent = (((lowest_price - price) / price) * 100) as f64;
+        // let profit_percent = round_to_place(profit_percent, 1);
+
         let time_remaining = Duration::from_millis(self.end - epoch_now);
 
         Some(ProfitItem {
