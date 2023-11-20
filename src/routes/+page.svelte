@@ -4,7 +4,8 @@
 
     import { getAuctions } from '$lib/utils';
 	import type { AuctionType } from '$lib/types';
-    import Auction  from '$components/Auction.svelte' ;
+    import Auction  from '$components/Auction.svelte'
+    import Loadingbar from '$components/Loadingbar.svelte';
 	import type { SvelteComponent } from 'svelte';
 
 	let auctions: AuctionType[] = [];
@@ -15,9 +16,11 @@
         while (true) {
             let data = await getAuctions();
             auctions = data as AuctionType[];
+            
+            window.eval(`setLoadingbarProgress(100)`); // Set loadingbar to 100% when done loading
 
             loading = false;
-            await new Promise((resolve) => setTimeout(resolve, 10000000000000)); // Delay to prevent crashing
+            await new Promise((resolve) => setTimeout(resolve, 1)); // Delay to prevent crashing
         }
     }
 
@@ -69,11 +72,15 @@
             <Auction auction={auction} />
         {/each}
     </table>
+
+    
 {:else}
     <div class="spinner-container">
         <Spinner bind:this={spinner} />
     </div>
 {/if}
+
+<Loadingbar />
 
 <style>
 	.topbar {

@@ -7,6 +7,11 @@ pub fn set_spinner_text<R: Runtime>(window: &Window<R>, text: &str) {
     window.eval(&format!("setSpinnerText('{}')", text)).unwrap();
 }
 
+pub fn set_loadingbar_progress<R: Runtime>(window: &Window<R>, current: u64, max: u64) {
+    let percent = current as f64 / max as f64 * 100.0;
+    window.eval(&format!("setLoadingbarProgress({})", percent)).unwrap();
+}
+
 pub async fn get_name(uuid: &str) -> String {
     let url = format!(
         "https://sessionserver.mojang.com/session/minecraft/profile/{}",
@@ -28,18 +33,3 @@ pub fn get_epoch() -> u128 {
     epoch.as_millis()
 }
 
-// pub fn get_auction_price(auction: &AuctionItem) -> u64 {
-//     let starting_price = auction.starting_bid;
-//     let current_price = auction.highest_bid_amount;
-
-//     if auction.bin {
-//         return starting_price;
-//     }
-//     if current_price == 0 { 
-//         // No bids have been placed
-//         return starting_price;
-//     } else {
-//         // Bids have been placed
-//         return current_price;
-//     }
-// }
