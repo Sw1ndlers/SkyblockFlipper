@@ -1,8 +1,16 @@
 import { Rarity, type AuctionType } from '$lib/types';
 
+const characters: string[] = [];
+for (let i = 32; i < 127; i++) {
+	characters.push(String.fromCharCode(i));
+}
+
 function sortAlphabetically(a: string, b: string) {
-	if (a < b) return -1;
-	if (a > b) return 1;
+    let a1 = characters.indexOf(a.charAt(0).toUpperCase());
+    let b1 = characters.indexOf(b.charAt(0).toUpperCase());
+
+	if (a1 < b1) return 1;
+	if (a1 > b1) return -1;
 	return 0;
 }
 
