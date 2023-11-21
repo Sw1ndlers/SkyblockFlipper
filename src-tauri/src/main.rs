@@ -21,7 +21,7 @@ use utils::set_spinner_text;
 
 use crate::auctions::{fetcher::get_auction_items, handler::get_profit_items};
 
-const DEBUG: bool = true;
+const DEBUG: bool = false;
 
 const MINIMUM_PROFIT: u64 = 80000;
 const MAXIMUM_TIME: u64 = 60 * 10; // 10 minutes
