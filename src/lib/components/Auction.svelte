@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { AuctionType } from '$lib/types';
+	import { rarityColors } from '$lib/constants';
 	import {
 		formatSeconds,
 		formatNumber,
@@ -7,12 +8,10 @@
 		setClipboard,
 		rarityFromString
 	} from '$lib/utils';
-	import { rarityColors } from '$lib/constants';
 
 	export let auction: AuctionType;
-	let color = rarityColors[rarityFromString(auction.rarity)];
-	// export let lastAuction: boolean;
 
+	$: color = rarityColors[rarityFromString(auction.rarity)];
 	$: copied = false;
 
 	function handleClick() {
