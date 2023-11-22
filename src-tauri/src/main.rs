@@ -30,10 +30,6 @@ use std::{fs, path::PathBuf};
 use tauri::{command, Manager, Runtime, Window};
 use window_shadows::set_shadow;
 
-lazy_static! {
-    static ref CONFIG: ConfigStruct = get_config().unwrap();
-}
-
 // const DEBUG: bool = false;
 // const MINIMUM_PROFIT: u64 = 80000;
 // const MAXIMUM_TIME: u64 = 60 * 10; // 10 minutes
@@ -59,7 +55,7 @@ async fn tauri_get_auctions<R: Runtime>(window: Window<R>) -> Vec<ProfitItem> {
     let client = Client::new();
     let auction_items: Vec<AuctionItem>;
 
-    let config = &CONFIG;
+    let config = get_config().unwrap();
 
     if config.debug {
         let cache_path = PathBuf::from("auctions.json");
@@ -93,6 +89,11 @@ async fn tauri_get_auctions<R: Runtime>(window: Window<R>) -> Vec<ProfitItem> {
 }
 
 fn main() {
+    set_config(ConfigStruct { 
+        debug: true,
+        ..Default::default()
+    }).unwrap();
+
     tauri::Builder::default()
         .setup(|app| {
             let window = app.get_window("main").unwrap();
