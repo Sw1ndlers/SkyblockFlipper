@@ -9,6 +9,8 @@
 	import Loadingbar from '$components/Loadingbar.svelte';
 	import Column from '$components/Column.svelte';
 
+	// Init
+
 	$: loading = true;
 
 	updateAuctionData(1, () => {

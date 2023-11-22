@@ -6,8 +6,8 @@ for (let i = 32; i < 127; i++) {
 }
 
 function sortAlphabetically(a: string, b: string) {
-    let a1 = characters.indexOf(a.charAt(0).toUpperCase());
-    let b1 = characters.indexOf(b.charAt(0).toUpperCase());
+	let a1 = characters.indexOf(a.charAt(0).toUpperCase());
+	let b1 = characters.indexOf(b.charAt(0).toUpperCase());
 
 	if (a1 < b1) return 1;
 	if (a1 > b1) return -1;
