@@ -6,7 +6,7 @@ use serde_json::Value;
 use std::collections::HashMap;
 use tauri::{Runtime, Window};
 
-async fn get_auction_urls(client: &Client) -> Result<Vec<String>, anyhow::Error> {
+async fn get_auction_urls(client: &Client) -> anyhow::Result<Vec<String>> {
     let auction_data: serde_json::Value = serde_json::from_str(
         client
             .get("https://api.hypixel.net/v2/skyblock/auctions")
@@ -30,7 +30,7 @@ async fn get_auction_urls(client: &Client) -> Result<Vec<String>, anyhow::Error>
 pub async fn get_auction_items<R: Runtime>(
     client: &Client,
     window: &Window<R>,
-) -> Result<Vec<AuctionItem>, anyhow::Error> {
+) -> anyhow::Result<Vec<AuctionItem>> {
     let urls = get_auction_urls(client).await?;
     let total_pages = urls.len();
 
