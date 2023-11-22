@@ -9,36 +9,69 @@ mod auctions {
     pub mod names;
 }
 mod utils {
+    pub mod config;
     pub mod frontend;
     pub mod functions;
 }
 
 use auctions::{
-    fetcher::{get_item_amounts, get_lowest_prices, get_auction_items},
+    fetcher::{get_auction_items, get_item_amounts, get_lowest_prices},
     handler::get_profit_items,
     items::{AuctionItem, ProfitItem},
 };
-use utils::frontend::set_spinner_text;
+use utils::{
+    config::{get_config, set_config, ConfigStruct},
+    frontend::set_spinner_text,
+};
 
-use std::{fs, path::PathBuf};
+use lazy_static::lazy_static;
 use reqwest::Client;
+use std::{fs, path::PathBuf};
+use tauri::{command, Manager, Runtime, Window};
+use window_shadows::set_shadow;
 
-const DEBUG: bool = false;
-const MINIMUM_PROFIT: u64 = 80000;
-const MAXIMUM_TIME: u64 = 60 * 10; // 10 minutes
+lazy_static! {
+    static ref CONFIG: ConfigStruct = get_config().unwrap();
+}
+
+// const DEBUG: bool = false;
+// const MINIMUM_PROFIT: u64 = 80000;
+// const MAXIMUM_TIME: u64 = 60 * 10; // 10 minutes
+
+#[tauri::command]
+async fn tauri_get_config() -> ConfigStruct {
+    return get_config().unwrap();
+}
+
+#[tauri::command]
+async fn tauri_set_config(config: ConfigStruct) -> Result<(), String> {
+    // let config = match serde_json::from_str(&config) {
+    //     Ok(config) => config,
+    //     Err(_) => return Err("Invalid config".to_string()),
+    // };
+    set_config(config).unwrap();
+
+    Ok(())
+}
 
 #[command]
 async fn tauri_get_auctions<R: Runtime>(window: Window<R>) -> Vec<ProfitItem> {
     let client = Client::new();
-
     let auction_items: Vec<AuctionItem>;
 
-    if DEBUG {
-        if PathBuf::from("auctions.json").exists() == false {
+    let config = &CONFIG;
+
+    if config.debug {
+        let cache_path = PathBuf::from("auctions.json");
+
+        if cache_path.exists() == false {
             let data = get_auction_items(&client, &window).await.unwrap();
-            fs::write("auctions.json", serde_json::to_string(&data).unwrap()).unwrap();
+            let json = serde_json::to_string(&data).unwrap();
+
+            fs::write(&cache_path, json).unwrap();
         }
-        auction_items = serde_json::from_str(&fs::read_to_string("auctions.json").unwrap()).unwrap();
+        let data = fs::read_to_string(&cache_path).unwrap();
+        auction_items = serde_json::from_str(&data).unwrap();
     } else {
         auction_items = get_auction_items(&client, &window).await.unwrap();
     }
@@ -51,16 +84,13 @@ async fn tauri_get_auctions<R: Runtime>(window: Window<R>) -> Vec<ProfitItem> {
         &auction_items,
         lowest_prices,
         item_amounts,
-        MAXIMUM_TIME,
-        MINIMUM_PROFIT,
+        config.maximum_time,
+        config.minimum_profit,
     )
     .await;
 
     return profit_items;
 }
-
-use tauri::{command, Manager, Runtime, Window};
-use window_shadows::set_shadow;
 
 fn main() {
     tauri::Builder::default()
