@@ -1,5 +1,4 @@
-use crate::utils::get_name;
-
+use crate::utils::functions::get_name;
 use super::items::{AuctionItem, ProfitItem};
 use super::names::normalize_name;
 

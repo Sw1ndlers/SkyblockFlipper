@@ -1,4 +1,4 @@
-use crate::utils::get_epoch;
+use crate::utils::functions::get_epoch;
 
 use serde::{Deserialize, Serialize};
 use std::time::Duration;

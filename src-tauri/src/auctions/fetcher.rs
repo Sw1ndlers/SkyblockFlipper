@@ -1,5 +1,5 @@
 use super::{items::AuctionItem, names::normalize_name};
-use crate::utils::{set_spinner_text, set_loadingbar_progress};
+use crate::utils::frontend::{set_loadingbar_progress, set_spinner_text};
 
 use reqwest::Client;
 use serde_json::Value;

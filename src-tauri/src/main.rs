@@ -8,21 +8,22 @@ mod auctions {
     pub mod items;
     pub mod names;
 }
-mod utils;
-
-use std::{fs, path::PathBuf};
+mod utils {
+    pub mod frontend;
+    pub mod functions;
+}
 
 use auctions::{
-    fetcher::{get_item_amounts, get_lowest_prices},
+    fetcher::{get_item_amounts, get_lowest_prices, get_auction_items},
+    handler::get_profit_items,
     items::{AuctionItem, ProfitItem},
 };
-use reqwest::Client;
-use utils::set_spinner_text;
+use utils::frontend::set_spinner_text;
 
-use crate::auctions::{fetcher::get_auction_items, handler::get_profit_items};
+use std::{fs, path::PathBuf};
+use reqwest::Client;
 
 const DEBUG: bool = false;
-
 const MINIMUM_PROFIT: u64 = 80000;
 const MAXIMUM_TIME: u64 = 60 * 10; // 10 minutes
 
