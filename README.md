@@ -5,6 +5,7 @@ Made with Tauri and Rust
 ## Todo
 
 ```
+[+] Add settings window
 [+] Add options (and saving for options)
         - Minimum Profit
         - Minimum On Bin
