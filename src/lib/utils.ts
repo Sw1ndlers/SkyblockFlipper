@@ -11,7 +11,7 @@ export async function getConfig(): Promise<ConfigType> {
 
 // Updates the config file
 export async function setConfig(configToSet: ConfigType) {
-    config.set(configToSet);
+	config.set(configToSet);
 	return invoke('tauri_set_config', { config: configToSet });
 }
 

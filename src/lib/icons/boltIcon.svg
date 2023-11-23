@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1080"
+    height="1080" viewBox="0 0 1080 1080" xml:space="preserve">
+    <defs>
+    </defs>
+    <g transform="matrix(1 0 0 1 540 540)" id="4ec422ff-21b8-4493-9fe6-c262ee84b75d">
+        <rect
+            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1; visibility: hidden;"
+            vector-effect="non-scaling-stroke" x="-540" y="-540" rx="0" ry="0" width="1080" height="1080" />
+    </g>
+    <g transform="matrix(1 0 0 1 540 540)" id="94dc3f26-a41f-42ad-9ee7-c51d67d8594e">
+    </g>
+    <g transform="matrix(1.13 0 0 1.13 540 540)">
+        <path
+            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+            transform=" translate(-480, 480)"
+            d="M 422 -232 L 629 -480 L 469 -480 L 498 -707 L 313 -440 L 452 -440 L 422 -232 Z M 320 -80 L 360 -360 L 160 -360 L 520 -880 L 600 -880 L 560 -560 L 800 -560 L 400 -80 L 320 -80 Z M 471 -470 Z"
+            stroke-linecap="round" />
+    </g>
+</svg>

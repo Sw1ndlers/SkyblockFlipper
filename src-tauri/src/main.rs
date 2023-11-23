@@ -24,7 +24,6 @@ use utils::{
     frontend::set_spinner_text,
 };
 
-use lazy_static::lazy_static;
 use reqwest::Client;
 use std::{fs, path::PathBuf};
 use tauri::{command, Manager, Runtime, Window};

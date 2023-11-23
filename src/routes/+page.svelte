@@ -1,8 +1,8 @@
 <script lang="ts">
 	// Functions
 	import { auctions, updateAuctionData, updateTimeRemaining } from '$lib/stores/Auctions';
-    import { get } from 'svelte/store';
-    import { config } from '$lib/stores/Config';
+	import { get } from 'svelte/store';
+	import { config } from '$lib/stores/Config';
 
 	// Components
 	import ActionButtons from '$components/ActionButtons.svelte';
@@ -10,6 +10,9 @@
 	import Auction from '$components/Auction.svelte';
 	import Loadingbar from '$components/Loadingbar.svelte';
 	import Column from '$components/Column.svelte';
+
+	// Assets
+	// import boltIcon from '$lib/icons/boltIcon.svg';
 
 	// Init
 
@@ -22,7 +25,10 @@
 </script>
 
 <div data-tauri-drag-region class="topbar">
-	<p class="window-title">Quick Flip</p>
+	<p class="window-title">
+		<!-- <img class="app-icon" src={boltIcon} /> -->
+		Quick Flip
+	</p>
 	<ActionButtons />
 </div>
 
@@ -83,8 +89,16 @@
 	}
 
 	.window-title {
-		margin-left: 20px;
+		margin-left: 15px;
 		font-weight: bold;
+
+        display: flex;
+        align-items: center;
+	}
+
+    .app-icon {
+        width: 30px;
+        padding-right: 15px;
 	}
 
 	.spinner-container {
