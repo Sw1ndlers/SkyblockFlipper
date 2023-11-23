@@ -100,7 +100,7 @@ fn main() {
             set_shadow(&window, true).expect("Unsupported platform!");
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![tauri_get_auctions])
+        .invoke_handler(tauri::generate_handler![tauri_get_auctions, tauri_get_config, tauri_set_config])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
