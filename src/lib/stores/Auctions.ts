@@ -43,16 +43,3 @@ export function updateTimeRemaining() {
 		return auctions;
 	});
 }
-
-// loading = true; // Initial loading state
-// updateAuctions();
-
-// // Update time remaining every second
-// setInterval(() => {
-//     auctions = auctions
-//         .map((auction) => {
-//             auction.time_remaining.secs -= 1;
-//             return auction;
-//         })
-//         .filter((auction) => auction.time_remaining.secs > 0);
-// }, 1000);
