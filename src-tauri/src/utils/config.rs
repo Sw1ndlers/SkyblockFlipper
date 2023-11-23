@@ -42,7 +42,7 @@ pub fn get_config() -> anyhow::Result<ConfigStruct> {
 }
 
 pub fn set_config(config: ConfigStruct) -> anyhow::Result<()> {
-    fs::write("config.json", serde_json::to_string(&config)?)?;
+    fs::write("config.json", serde_json::to_string_pretty(&config)?)?;
 
     Ok(())
 }
