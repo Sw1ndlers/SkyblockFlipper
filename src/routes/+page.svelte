@@ -22,7 +22,7 @@
 </script>
 
 <div data-tauri-drag-region class="topbar">
-	<p class="window-title">Sw1ndlers Flipper</p>
+	<p class="window-title">Quick Flip</p>
 	<ActionButtons />
 </div>
 
