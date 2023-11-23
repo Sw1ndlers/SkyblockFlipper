@@ -1,3 +1,10 @@
+export type ConfigType = {
+	debug: boolean;
+	minimum_profit: number;
+	maximum_time: number;
+	refresh_delay: number;
+};
+
 export type Instant = {
 	nanos: number;
 	secs: number;
@@ -16,6 +23,11 @@ export type AuctionType = {
 	rarity: string;
 };
 
+export type SortType = {
+	sortFunction: (a: AuctionType, b: AuctionType) => number;
+	higherToLower: boolean;
+};
+
 export enum Rarity {
 	Common,
 	Uncommon,
@@ -27,8 +39,3 @@ export enum Rarity {
 	VerySpecial,
 	Supreme
 }
-
-export type SortType = {
-	sortFunction: (a: AuctionType, b: AuctionType) => number;
-	higherToLower: boolean;
-};

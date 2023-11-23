@@ -1,6 +1,8 @@
 <script lang="ts">
 	// Functions
 	import { auctions, updateAuctionData, updateTimeRemaining } from '$lib/stores/Auctions';
+    import { get } from 'svelte/store';
+    import { config } from '$lib/stores/Config';
 
 	// Components
 	import ActionButtons from '$components/ActionButtons.svelte';

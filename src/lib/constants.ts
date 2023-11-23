@@ -1,4 +1,16 @@
-import { Rarity, type AuctionType } from '$lib/types';
+import type { AuctionType } from '$lib/types';
+
+export enum Rarity {
+	Common,
+	Uncommon,
+	Rare,
+	Epic,
+	Legendary,
+	Mythic,
+	Special,
+	VerySpecial,
+	Supreme
+}
 
 const characters: string[] = [];
 for (let i = 32; i < 127; i++) {
@@ -14,7 +26,7 @@ function sortAlphabetically(a: string, b: string) {
 	return 0;
 }
 
-export type RarityColors = {
+type RarityColors = {
 	[K in Rarity]: string;
 };
 
