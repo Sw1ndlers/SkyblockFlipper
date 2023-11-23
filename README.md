@@ -9,5 +9,6 @@ Made with Tauri and Rust
         - Minimum Profit
         - Minimum On Bin
         - Maximum Time
+[~] Split utils.ts file into multiple
 ```
 
