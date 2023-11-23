@@ -1,6 +1,35 @@
-# Skyblock Flipper
+# Quick Flip
 
-Made with Tauri and Rust
+A skyblock auction flipper made with Tauri and Rust
+
+## Download Options
+
+### Recommended
+
+```
+SkyblockFlipper_x64-setup.exe
+    - Installer for Windows
+
+SkyblockFlipper_x64.dmg
+    - Installer for macOS
+
+skyblock-flipper_amd64.AppImage
+    - Easy installer for most Linux Systems.
+```
+
+### Alternative
+
+```
+SkyblockFlipper_x64_en-US.msi
+    - Alternative Installer For Windows
+
+SkyblockFlipper_x64.app.tar.gz
+    - Compressed archive for Linux
+
+skyblock-flipper_amd64.deb 
+    - Installation package for Debian-based Linux.
+```
+
 
 ## Todo
 
