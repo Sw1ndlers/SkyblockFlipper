@@ -6,5 +6,8 @@ Made with Tauri and Rust
 
 ```
 [+] Add options (and saving for options)
+        - Minimum Profit
+        - Minimum On Bin
+        - Maximum Time
 ```
 
