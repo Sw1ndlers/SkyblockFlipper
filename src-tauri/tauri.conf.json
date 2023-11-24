@@ -6,8 +6,8 @@
 		"distDir": "../build"
 	},
 	"package": {
-		"productName": "SkyblockFlipper",
-		"version": "0.3.0"
+		"productName": "QuickFlip",
+		"version": "0.3.1"
 	},
 	"tauri": {
 		"allowlist": {

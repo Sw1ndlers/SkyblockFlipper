@@ -1,3 +1,4 @@
+use platform_dirs::{AppDirs, UserDirs};
 use serde::{Deserialize, Serialize};
 use std::fs;
 
@@ -20,13 +21,22 @@ impl Default for ConfigStruct {
     }
 }
 
+const CONFIG_FILE: &str = "config.json";
+const CONFIG_DIR: &str = "QuickFlip";
+
 fn config_file_exists() -> bool {
-    return fs::metadata("config.json").is_ok();
+    let config_dir = AppDirs::new(Some(CONFIG_DIR), false).unwrap().data_dir;
+    let config_file = config_dir.join(CONFIG_FILE);
+
+    return config_file.exists();
 }
 
 fn create_config_file() -> anyhow::Result<()> {
-    let config = ConfigStruct::default();
-    fs::write("config.json", serde_json::to_string(&config)?)?;
+    let default_config = ConfigStruct::default();
+    let config_dir = AppDirs::new(Some(CONFIG_DIR), false).unwrap().data_dir;
+
+    fs::create_dir_all(&config_dir)?;
+    fs::write(&config_dir.join(CONFIG_FILE), serde_json::to_string_pretty(&default_config)?)?;
 
     Ok(())
 }
@@ -36,33 +46,28 @@ pub fn get_config() -> anyhow::Result<ConfigStruct> {
         create_config_file()?;
     }
 
-    // let config: ConfigStruct = serde_json::from_str(&fs::read_to_string("config.json")?)?;
+    let config_dir = AppDirs::new(Some(CONFIG_DIR), false).unwrap().data_dir;
+    let config_file = config_dir.join(CONFIG_FILE);
 
-    let config: ConfigStruct = match serde_json::from_str(&fs::read_to_string("config.json")?) {
+    let config: ConfigStruct = match serde_json::from_str(&fs::read_to_string(&config_file)?) {
         Ok(config) => config,
         Err(_) => {
             print!("Invalid config file, creating new one...");
             create_config_file()?;
             
-            serde_json::from_str(&fs::read_to_string("config.json")?)?
+            serde_json::from_str(&fs::read_to_string(&config_file)?)?
         }
     };
 
-    return Ok(config);
+    Ok(config)
 }
 
 pub fn set_config(config: ConfigStruct) -> anyhow::Result<()> {
-    // let mut config = config;
-    
-    // // Convert maximum_time from minutes to milliseconds
-    // config.maximum_time *= 60 * 1000;
+    // fs::write("config.json", serde_json::to_string_pretty(&config)?)?;
+    let config_dir = AppDirs::new(Some(CONFIG_DIR), false).unwrap().data_dir;
+    let config_file = config_dir.join(CONFIG_FILE);
 
-    // // Convert refresh_delay from seconds to milliseconds
-    // config.refresh_delay *= 1000;
-
-    println!("{:?}", config);
-
-    fs::write("config.json", serde_json::to_string_pretty(&config)?)?;
+    fs::write(&config_file, serde_json::to_string_pretty(&config)?)?;
 
     Ok(())
 }
