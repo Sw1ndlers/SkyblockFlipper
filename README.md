@@ -35,6 +35,4 @@ skyblock-flipper_amd64.deb
 
 ```
 [+] Add logging for easier debugging
-[~] Split utils.ts file into multiple
-[~] Split constants.ts file into multiple
 ```
