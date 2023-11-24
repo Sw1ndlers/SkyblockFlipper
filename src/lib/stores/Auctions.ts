@@ -1,8 +1,9 @@
 import type { AuctionType, SortType } from '$lib/types';
 import { writable, type Writable, get } from 'svelte/store';
-import { getAuctions, sortAuctionsBy } from '$lib/utils';
-import { sortFunctions } from '$lib/constants';
-import { config } from '$lib/stores/Config';
+import { sortAuctionsBy } from '$lib/utils/auctions';
+import { getAuctions } from '$lib/utils/tauri';
+import { sortFunctions } from '$lib/constants/sorting';
+import { config } from '$stores/Config';
 
 const firstSort: SortType = {
 	sortFunction: sortFunctions['Profit'],

@@ -1,6 +1,6 @@
 <script lang="ts">
 	// Functions
-	import { auctions, updateAuctionData, updateTimeRemaining } from '$lib/stores/Auctions';
+	import { auctions, updateAuctionData, updateTimeRemaining } from '$stores/Auctions';
 	import { WebviewWindow } from '@tauri-apps/api/window';
 
 	// Components

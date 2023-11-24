@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Setting from '$components/Setting.svelte';
-	import { config } from '$lib/stores/Config';
+	import { config } from '$stores/Config';
 	import { get } from 'svelte/store';
 
 	// function updateMinimumProfit(val: number) {

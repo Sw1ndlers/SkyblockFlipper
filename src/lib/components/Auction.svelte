@@ -1,13 +1,16 @@
 <script lang="ts">
 	import type { AuctionType } from '$lib/types';
-	import { rarityColors } from '$lib/constants';
-	import {
-		formatSeconds,
-		formatNumber,
-		getCommand,
-		setClipboard,
-		rarityFromString
-	} from '$lib/utils';
+	import { rarityColors } from '$lib/constants/rarity';
+	// import {
+	// 	formatSeconds,
+	// 	formatNumber,
+	// 	getCommand,
+	// 	setClipboard,
+	// 	rarityFromString
+	// } from '$lib/utils';
+
+	import { formatNumber, formatSeconds, setClipboard } from '$lib/utils/formatting';
+	import { getCommand, rarityFromString } from '$lib/utils/auctions';
 
 	export let auction: AuctionType;
 

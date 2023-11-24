@@ -10,9 +10,9 @@
 	export let title: string;
 
 	import arrowIcon from '$lib/icons/arrow.svg';
-	import { updateAuctions, setCurrentSort } from '$lib/stores/Auctions';
-	import { sortFunctions } from '$lib/constants';
-	import { sortAuctionsBy } from '$lib/utils';
+	import { updateAuctions, setCurrentSort } from '$stores/Auctions';
+	import { sortFunctions } from '$lib/constants/sorting';
+	import { sortAuctionsBy } from '$lib/utils/auctions';
 	import type { SortType } from '$lib/types';
 
 	$: hovered = false;

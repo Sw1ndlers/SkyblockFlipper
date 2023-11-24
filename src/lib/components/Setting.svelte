@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { updateConfigFile } from '$lib/utils';
+	import { updateConfigFile } from '$utils/tauri';
 
 	let inputElement: HTMLInputElement;
 

@@ -1,6 +1,6 @@
 import type { ConfigType } from '$lib/types';
-import { getConfig, setConfig } from '$lib/utils';
-import { get, writable, type Writable } from 'svelte/store';
+import { getConfig } from '$utils/tauri';
+import { writable, type Writable } from 'svelte/store';
 
 let currentConfig = await getConfig();
 
