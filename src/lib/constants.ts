@@ -1,21 +1,11 @@
 import type { AuctionType } from '$lib/types';
 
-export enum Rarity {
-	Common,
-	Uncommon,
-	Rare,
-	Epic,
-	Legendary,
-	Mythic,
-	Special,
-	VerySpecial,
-	Supreme
-}
-
 const characters: string[] = [];
 for (let i = 32; i < 127; i++) {
 	characters.push(String.fromCharCode(i));
 }
+
+// Sorting
 
 function sortAlphabetically(a: string, b: string) {
 	let a1 = characters.indexOf(a.charAt(0).toUpperCase());
@@ -25,22 +15,6 @@ function sortAlphabetically(a: string, b: string) {
 	if (a1 > b1) return -1;
 	return 0;
 }
-
-type RarityColors = {
-	[K in Rarity]: string;
-};
-
-export const rarityColors: RarityColors = {
-	[Rarity.Common]: '#ffffff',
-	[Rarity.Uncommon]: '#5555ff',
-	[Rarity.Rare]: '#5555FF',
-	[Rarity.Epic]: '#aa00aa',
-	[Rarity.Legendary]: '#ffaa00',
-	[Rarity.Mythic]: '#ff55ff',
-	[Rarity.Special]: '#ff5555',
-	[Rarity.VerySpecial]: '#ff5555',
-	[Rarity.Supreme]: '#55ffff'
-};
 
 export const sortFunctions: { [key: string]: (a: AuctionType, b: AuctionType) => number } = {
 	Item: (a: AuctionType, b: AuctionType) => {
@@ -64,4 +38,34 @@ export const sortFunctions: { [key: string]: (a: AuctionType, b: AuctionType) =>
 	'#': (a: AuctionType, b: AuctionType) => {
 		return a.item_amount - b.item_amount;
 	}
+};
+
+// Rarity
+
+export enum Rarity {
+	Common,
+	Uncommon,
+	Rare,
+	Epic,
+	Legendary,
+	Mythic,
+	Special,
+	VerySpecial,
+	Supreme
+}
+
+type RarityColors = {
+	[K in Rarity]: string;
+};
+
+export const rarityColors: RarityColors = {
+	[Rarity.Common]: '#ffffff',
+	[Rarity.Uncommon]: '#5555ff',
+	[Rarity.Rare]: '#5555FF',
+	[Rarity.Epic]: '#aa00aa',
+	[Rarity.Legendary]: '#ffaa00',
+	[Rarity.Mythic]: '#ff55ff',
+	[Rarity.Special]: '#ff5555',
+	[Rarity.VerySpecial]: '#ff5555',
+	[Rarity.Supreme]: '#55ffff'
 };

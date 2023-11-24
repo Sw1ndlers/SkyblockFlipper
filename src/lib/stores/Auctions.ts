@@ -2,6 +2,7 @@ import type { AuctionType, SortType } from '$lib/types';
 import { writable, type Writable, get } from 'svelte/store';
 import { getAuctions, sortAuctionsBy } from '$lib/utils';
 import { sortFunctions } from '$lib/constants';
+import { config } from '$lib/stores/Config';
 
 const firstSort: SortType = {
 	sortFunction: sortFunctions['Profit'],
@@ -18,17 +19,18 @@ export const {
 	update: updateCurrentSort
 } = currentSort;
 
-export async function updateAuctionData(delay: number = 1, callback: Function) {
+export async function updateAuctionData(callback: Function) {
 	while (true) {
-		let data = (await getAuctions()) as AuctionType[];
-		let sortBy = get(currentSort);
+		const data = (await getAuctions()) as AuctionType[];
+		const sortBy = get(currentSort);
+		const refreshDelay = get(config)['refresh_delay'];
 
 		setAuctions(sortAuctionsBy(data, sortBy));
 
 		window.eval(`setLoadingbarProgress(100)`); // Set loadingbar to 100% when done loading
 
 		callback();
-		await new Promise((resolve) => setTimeout(resolve, delay)); // Delay to prevent crashing
+		await new Promise((resolve) => setTimeout(resolve, refreshDelay));
 	}
 }
 

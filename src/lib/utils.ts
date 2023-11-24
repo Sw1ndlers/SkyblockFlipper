@@ -3,16 +3,22 @@ import { Rarity } from '$lib/constants';
 import type { AuctionType, SortType, ConfigType } from '$lib/types';
 
 import { config } from '$lib/stores/Config';
+import { get } from 'svelte/store';
 
 // Gets the config file
 export async function getConfig(): Promise<ConfigType> {
-	return await invoke('tauri_get_config');
+	return invoke('tauri_get_config');
 }
 
 // Updates the config file
 export async function setConfig(configToSet: ConfigType) {
 	config.set(configToSet);
 	return invoke('tauri_set_config', { config: configToSet });
+}
+
+export async function updateConfigFile() {
+	let configToSet = get(config);
+	await setConfig(configToSet);
 }
 
 // Auctions

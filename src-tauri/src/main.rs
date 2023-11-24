@@ -88,11 +88,6 @@ async fn tauri_get_auctions<R: Runtime>(window: Window<R>) -> Vec<ProfitItem> {
 }
 
 fn main() {
-    set_config(ConfigStruct { 
-        debug: true,
-        ..Default::default()
-    }).unwrap();
-
     tauri::Builder::default()
         .setup(|app| {
             let window = app.get_window("main").unwrap();

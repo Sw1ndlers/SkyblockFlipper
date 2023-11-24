@@ -34,9 +34,6 @@
 </script>
 
 <th scope="col" class="table-header" class:padding-right={title == 'Auctioneer'}>
-	<!-- svelte-ignore a11y-no-static-element-interactions -->
-	<!-- svelte-ignore a11y-click-events-have-key-events -->
-	<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 	<div
 		on:click={handleClick}
 		on:mouseenter={() => (hovered = true)}
@@ -45,7 +42,6 @@
 		{title}
 
 		{#if title != '#'}
-			<!-- svelte-ignore a11y-missing-attribute -->
 			<img
 				class:hidden={!hovered}
 				class:icon-flipped={!higherToLower}

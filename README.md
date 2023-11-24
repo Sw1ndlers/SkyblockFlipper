@@ -40,5 +40,6 @@ skyblock-flipper_amd64.deb
         - Minimum On Bin
         - Maximum Time
 [~] Split utils.ts file into multiple
+[~] Split constants.ts file into multiple
 ```
 

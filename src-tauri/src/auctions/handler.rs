@@ -8,8 +8,8 @@ pub async fn get_profit_items(
     items: &Vec<AuctionItem>,
     lowest_prices: HashMap<String, u64>,
     item_amounts: HashMap<String, u64>,
-    maximum_time: u64,
-    minimum_profit: u64,
+    maximum_time: u64, // in minutes
+    minimum_profit: u64, // in coins
 ) -> Vec<ProfitItem> {
     let mut profit_items: Vec<ProfitItem> = Vec::new();
 
@@ -33,7 +33,8 @@ pub async fn get_profit_items(
 
         match profit_item {
             Some(mut profit_item) => {
-                if profit_item.time_remaining.as_secs() > maximum_time {
+                // Convert time_remaining from milliseconds to minutes
+                if (profit_item.time_remaining.as_secs() / 60) > maximum_time {
                     continue;
                 }
                 if profit_item.profit < minimum_profit as i64 {

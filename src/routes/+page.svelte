@@ -1,8 +1,7 @@
 <script lang="ts">
 	// Functions
 	import { auctions, updateAuctionData, updateTimeRemaining } from '$lib/stores/Auctions';
-	import { get } from 'svelte/store';
-	import { config } from '$lib/stores/Config';
+	import { WebviewWindow } from '@tauri-apps/api/window';
 
 	// Components
 	import ActionButtons from '$components/ActionButtons.svelte';
@@ -12,13 +11,23 @@
 	import Column from '$components/Column.svelte';
 
 	// Assets
-	// import boltIcon from '$lib/icons/boltIcon.svg';
+	import settingsIcon from '$lib/icons/settings.svg';
 
 	// Init
 
+	function openSettingsWindow() {
+		const webview = new WebviewWindow('Settings', {
+			url: '/settings'
+		});
+
+		webview.once('tauri://error', function (e) {
+			console.log(`Error creating settings window: ${e}`);
+		});
+	}
+
 	$: loading = true;
 
-	updateAuctionData(1, () => {
+	updateAuctionData(() => {
 		loading = false;
 	});
 	setInterval(updateTimeRemaining, 1000);
@@ -26,7 +35,7 @@
 
 <div data-tauri-drag-region class="topbar">
 	<p class="window-title">
-		<!-- <img class="app-icon" src={boltIcon} /> -->
+		<img class="settings-icon" on:click={openSettingsWindow} src={settingsIcon} />
 		Quick Flip
 	</p>
 	<ActionButtons />
@@ -92,13 +101,17 @@
 		margin-left: 15px;
 		font-weight: bold;
 
-        display: flex;
-        align-items: center;
+		display: flex;
+		align-items: center;
 	}
 
-    .app-icon {
-        width: 30px;
-        padding-right: 15px;
+	.settings-icon {
+		width: 22px;
+		padding-right: 15px;
+	}
+
+	.settings-icon:hover {
+		cursor: pointer;
 	}
 
 	.spinner-container {
