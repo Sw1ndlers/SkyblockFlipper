@@ -34,12 +34,6 @@ skyblock-flipper_amd64.deb
 ## Todo
 
 ```
-[+] Add settings window
-[+] Add options (and saving for options)
-        - Minimum Profit
-        - Minimum On Bin
-        - Maximum Time
 [~] Split utils.ts file into multiple
 [~] Split constants.ts file into multiple
 ```
-
