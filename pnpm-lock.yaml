@@ -8,9 +8,6 @@ dependencies:
   '@tauri-apps/api':
     specifier: ^1.5.1
     version: 1.5.1
-  hotkeys-js:
-    specifier: ^3.12.0
-    version: 3.12.0
 
 devDependencies:
   '@fontsource/fira-mono':
@@ -1297,10 +1294,6 @@ packages:
     resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==}
     engines: {node: '>=8'}
     dev: true
-
-  /hotkeys-js@3.12.0:
-    resolution: {integrity: sha512-Z+N573ycUKIGwFYS3ID1RzMJiGmtWMGKMiaNLyJS8B1ei+MllF4ZYmKS2T0kMWBktOz+WZLVNikftEgnukOrXg==}
-    dev: false
 
   /ignore@5.2.4:
     resolution: {integrity: sha512-MAb38BcSbH0eHNBxn7ql2NH/kX33OkB3lZ1BNdh7ENeRChHTYsTvWrMubiIAMNS2llXEEgZ1MUOBtXChP3kaFQ==}
