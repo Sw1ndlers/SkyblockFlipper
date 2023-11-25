@@ -14,7 +14,7 @@ QuickFlip_x64.dmg
     - Installer for macOS
 
 skyblock-flipper_amd64.AppImage
-    - Easy installer for most Linux Systems.
+    - Installer most Linux Systems.
 ```
 
 ### Alternative
@@ -30,6 +30,12 @@ skyblock-flipper_amd64.deb
     - Installation package for Debian-based Linux.
 ```
 
+
+## Possible Features
+```
+[+] Profit Tracker
+[+] Show which auctions are owned
+```
 
 ## Todo
 

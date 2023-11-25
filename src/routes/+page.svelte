@@ -17,6 +17,7 @@
 
 	function openSettingsWindow() {
 		const webview = new WebviewWindow('Settings', {
+			title: 'Settings',
 			url: '/settings'
 		});
 
