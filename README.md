@@ -4,6 +4,8 @@ A skyblock auction flipper made with Tauri and Rust
 
 ## Download Options
 
+[Download Link](https://github.com/Sw1ndlers/SkyblockFlipper/releases/latest)
+
 ### Recommended
 
 ```
